@@ -2985,7 +2985,7 @@ bool vulkan_make_swapchain( VulkanOutput_t *pOutput )
 	return true;
 }
 
-bool vulkan_remake_swapchain( void )
+void vulkan_destroy_swapchain( void )
 {
 	VulkanOutput_t *pOutput = &g_output;
 	g_device.waitIdle();
@@ -2993,6 +2993,14 @@ bool vulkan_remake_swapchain( void )
 	pOutput->outputImages.clear();
 
 	g_device.vk.DestroySwapchainKHR( g_device.device(), pOutput->swapChain, nullptr );
+	pOutput->swapChain = nullptr;
+}
+
+bool vulkan_remake_swapchain( void )
+{
+	vulkan_destroy_swapchain();
+
+	VulkanOutput_t *pOutput = &g_output;
 
 	// Delete screenshot image to be remade if needed
 	for (auto& pScreenshotImage : pOutput->pScreenshotImages)
@@ -3006,7 +3014,7 @@ bool vulkan_remake_swapchain( void )
 static bool vulkan_make_output_images( VulkanOutput_t *pOutput )
 {
 	CVulkanTexture::createFlags outputImageflags;
-	outputImageflags.bFlippable = !BIsNested();
+	outputImageflags.bFlippable = BIsUsingDRM();
 	outputImageflags.bStorage = true;
 	outputImageflags.bTransferSrc = true; // for screenshots
 	outputImageflags.bSampled = true; // for pipewire blits
@@ -3107,7 +3115,7 @@ bool vulkan_make_output( VkSurfaceKHR surface )
 		pOutput->outputFormat = VK_FORMAT_A2B10G10R10_UNORM_PACK32;
 		vulkan_make_output_images( pOutput );
 	}
-	else if ( BIsSDLSession() )
+	else if ( BIsSdlSession() || (BIsNested() && !BIsUsingDRM()) )
 	{
 		assert(surface);
 		pOutput->surface = surface;
@@ -3772,7 +3780,7 @@ bool vulkan_composite( const struct FrameInfo_t *frameInfo, std::shared_ptr<CVul
 
 	uint64_t sequence = g_device.submit(std::move(cmdBuffer));
 
-	if ( defer )
+	if ( defer || BIsVRSession() || BIsUsingDRM() )
 	{
 		defer_wait_thread = std::make_unique<std::thread>([sequence]
 		{

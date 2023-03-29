@@ -66,3 +66,12 @@ bool BIsNested( void );
 bool BIsHeadless( void );
 bool BIsSDLSession( void );
 bool BIsVRSession( void );
+
+bool BIsLeasing( void );
+
+inline bool BIsUsingDRM( void )
+{
+    return (!BIsNested() || BIsLeasing()) && !BIsVRSession();
+}
+
+void try_drm_lease();

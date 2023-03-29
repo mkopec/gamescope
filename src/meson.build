@@ -95,6 +95,7 @@ src = [
   'log.cpp',
   'ime.cpp',
   'mangoapp.cpp',
+  'lease.cpp',
 ]
 
 src += spirv_shaders
