@@ -9,6 +9,7 @@ protocols = [
 	'gamescope-tearing-control-unstable-v1',
 	'xdg-shell',
 	'presentation-time',
+	'drm-lease-v1',
 ]
 
 protocols_client_src = []
