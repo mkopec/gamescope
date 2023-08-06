@@ -666,6 +666,7 @@ bool g_bSupportsST2084_CachedValue = false;
 bool g_bForceHDR10OutputDebug = false;
 bool g_bHDREnabled = false;
 bool g_bHDRItmEnable = false;
+std::pair<uint32_t, uint32_t> g_LastConnectorIdentifier = { 0u, 0u };
 
 Window x11_win(steamcompmgr_win_t *w) {
 	if (w == nullptr)
