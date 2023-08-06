@@ -42,7 +42,7 @@ const char *gamescope_optstring = nullptr;
 const char *g_pOriginalDisplay = nullptr;
 const char *g_pOriginalWaylandDisplay = nullptr;
 
-static constexpr bool g_bLeaseImmediately = false;
+static constexpr bool g_bLeaseImmediately = true;
 
 const struct option *gamescope_options = (struct option[]){
 	{ "help", no_argument, nullptr, 0 },
