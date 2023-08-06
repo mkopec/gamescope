@@ -3115,7 +3115,7 @@ bool vulkan_make_output( VkSurfaceKHR surface )
 		pOutput->outputFormat = VK_FORMAT_A2B10G10R10_UNORM_PACK32;
 		vulkan_make_output_images( pOutput );
 	}
-	else if ( BIsSdlSession() || (BIsNested() && !BIsUsingDRM()) )
+	else if ( BIsSDLSession() || (BIsNested() && !BIsUsingDRM()) )
 	{
 		assert(surface);
 		pOutput->surface = surface;
