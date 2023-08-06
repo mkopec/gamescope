@@ -712,7 +712,7 @@ int main(int argc, char **argv)
 	}
 #endif
 
-	if ( !initOutput( g_nPreferredOutputWidth, g_nPreferredOutputHeight, g_nNestedRefresh ) )
+	if ( !initOutput( g_nPreferredOutputWidth, g_nPreferredOutputHeight, g_nNestedRefresh, lease_fd ) )
 	{
 		fprintf( stderr, "Failed to initialize output\n" );
 		return 1;
