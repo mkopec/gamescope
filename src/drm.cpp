@@ -2793,7 +2793,7 @@ static void drm_unset_connector( struct drm_t *drm )
 
 void drm_set_vrr_enabled(struct drm_t *drm, bool enabled)
 {
-	drm->wants_vrr_enabled = enabled;
+	drm->wants_vrr_enabled = true;
 }
 
 bool drm_get_vrr_in_use(struct drm_t *drm)

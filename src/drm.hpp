@@ -235,7 +235,7 @@ struct drm_t {
 		bool vrr_enabled = false;
 		drm_valve1_transfer_function output_tf = DRM_VALVE1_TRANSFER_FUNCTION_DEFAULT;
 	} current, pending;
-	bool wants_vrr_enabled = false;
+	bool wants_vrr_enabled = true;
 
 	/* FBs in the atomic request, but not yet submitted to KMS */
 	std::vector < uint32_t > fbids_in_req;
